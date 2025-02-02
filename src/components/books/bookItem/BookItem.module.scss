@@ -1,0 +1,33 @@
+.bookItem {
+  display: flex;
+  align-items: stretch;
+  margin: 7px 0;
+  border: 1px solid rgb(52, 50, 50);
+
+  img {
+    max-height: 100%;
+    width: auto;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    margin-left: 17px;
+    flex: 1;
+
+    span{
+      display: flex;
+      font-style: italic;
+      font-size: small;
+      line-height: 22px;
+      margin-bottom: 17px;
+    }
+    img{
+      width: 22px;
+      height: min-content;
+      display: list-item;
+      padding-right: 7px;
+    }
+  }
+}

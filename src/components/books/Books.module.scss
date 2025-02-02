@@ -1,0 +1,17 @@
+.books{
+  display: flex;
+  flex-direction: column;
+  
+   
+  h2 {
+    margin: 7px 17px ;
+  }
+  code{
+    text-align: center;    
+  }
+  ul{
+    list-style-type: none;
+    margin: 5px auto;
+  }
+  
+}

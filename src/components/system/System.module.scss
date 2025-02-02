@@ -1,0 +1,25 @@
+.system {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px dashed grey;
+  margin-bottom: 7px;
+  padding: 0 17px;
+
+  p {
+    margin-left: 5px;
+    line-height: 30px;
+  }
+  button {
+    margin-left: 17px;
+  }
+}
+
+.active {
+  color: green;
+}
+
+.inActive {
+  color: red;
+}
