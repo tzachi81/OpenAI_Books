@@ -1,6 +1,5 @@
 import { assign, createMachine, fromPromise } from "xstate";
-import { IBook, IBooksContext } from "./books.types";
-import { Books } from "../../components/books/Books";
+import { IBooksContext } from "./books.types";
 
 const initialContext: IBooksContext = {
   books: [],
@@ -61,17 +60,18 @@ export const booksMachine = createMachine({
         FETCH: 'Loading',
         UPDATE_FILTERS: {
           actions: assign({
-          filters: ({ context, event }) => ({...context.filters, ...event.payload})
-        }),
-      }
-    }
-  },
-    Failure: {
-      on: {
-        FETCH: {
-          target: 'Idle',
+            filters: ({ context, event }) => ({ ...context.filters, ...event.payload })
+          }),
         }
       }
+    },
+    Failure: {
+      after: {
+        2000: {
+          target: 'Idle',
+          actions: assign({ error: () => '' })
+        }
+      },
     }
   }
 });

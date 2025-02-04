@@ -1,8 +1,7 @@
-import { IBook } from "../../machines/booksMachine/books.types";
 import { Filter } from "./filter/Filter";
 import classes from "./Filters.module.scss";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 
 interface IFiltersProps {
   booksState: any;
@@ -28,7 +27,7 @@ export const Filters: React.FC<IFiltersProps> = (props) => {
     genre: [],
   };
 
-  const categoryLists = useMemo(() => {
+  useMemo(() => {
     if (books.length > 0) {
       const validCategoriesKeys = Object.keys(validCategories);
 

@@ -10,12 +10,10 @@ interface IFilterProps {
 export const Filter: React.FC<IFilterProps> = ({
   category,
   filterItems,
-  booksState,
   sendToBooks,
 }) => {
   const onSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
-    const category = event.target.name;
 
     sendToBooks({
       type: "UPDATE_FILTERS",

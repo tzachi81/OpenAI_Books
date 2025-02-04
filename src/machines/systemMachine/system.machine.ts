@@ -1,8 +1,7 @@
-import { createMachine, sendTo, assign, spawnChild, stopChild } from 'xstate';
+import { createMachine, spawnChild, stopChild } from 'xstate';
 import { IToggleContext } from './system.types';
 import { counterMachine } from '../counterMachine/counter.machine';
 import { booksMachine } from '../booksMachine/books.machine';
-// import { IInput, IToggleContext } from './toggle.types';
 
 const initialContext: IToggleContext = {
 }

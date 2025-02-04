@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import classes from "./Books.module.scss";
 import BookLoader from './assets/images/book-loader.svg?react';
@@ -17,14 +17,9 @@ export const Books: React.FC<IBooksProps> = (props) => {
 
   const {booksState, sendToBooks} = props;
 
-
-  // useEffect(() => {
-  //   console.log("Books state", booksState.context.books);
-  // }, [booksState]);
-
   const onGetBooksClick = () => sendToBooks({ type: "FETCH" });
 
-  const { error, loading, books, filters } = booksState.context;
+  const { error, loading, books } = booksState.context;
 
   if (loading) return <BookLoader/>;
   if (error !== '') return <p>{error}</p>;
