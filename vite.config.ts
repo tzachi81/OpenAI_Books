@@ -5,7 +5,7 @@ import svgr from "vite-plugin-svgr";
 // https://vite.dev/config/
 
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? process.env.VERCEL_APP_NAME : '/',
+  base: process.env.NODE_ENV === 'production' ? `https://${process.env.VITE_VERCEL_APP_NAME}/` : '/',
   plugins: [react(), svgr()],
   server: {
     proxy: {

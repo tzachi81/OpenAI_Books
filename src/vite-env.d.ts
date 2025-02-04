@@ -2,4 +2,4 @@
 
 /// <reference types="vite-plugin-svgr/client" />
 
-VERCEL_APP_NAME="xstate-machines-pvuk.vercel.app"
+VITE_VERCEL_APP_NAME="xstate-machines-pvuk.vercel.app"
