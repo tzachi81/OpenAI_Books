@@ -8,7 +8,7 @@ const initialContext: IBooksContext = {
   loading: false
 }
 
-const apiUrl = `https://${import.meta.env.VITE_VERCEL_APP_NAME}/api`
+const apiUrl = import.meta.env.VITE_API_URL;
 
 fetch(`${apiUrl}`)
 const fetchBooks = async () => {

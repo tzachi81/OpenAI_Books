@@ -2,4 +2,4 @@
 
 /// <reference types="vite-plugin-svgr/client" />
 
-VITE_VERCEL_APP_NAME="xstate-machines-pvuk.vercel.app"
+VITE_API_URL="https://freetestapi.com/api/v1/books"
