@@ -42,7 +42,7 @@ export const Books: React.FC<IBooksProps> = (props) => {
     <div className={classes.books}>
 
       <div className={classes.booksResultsHeader}>
-        <label>Found {books.length} books</label>
+        {books.length >0 && <label>Found {books.length} books</label>}
         <button onClick={onGetBooksClick} title="Get books" value={"Get Books"}>
           Get Books
         </button>
