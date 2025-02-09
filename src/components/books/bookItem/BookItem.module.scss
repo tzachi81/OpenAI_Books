@@ -2,14 +2,10 @@
   display: flex;
   margin: 7px 0;
   border: 1px solid rgb(52, 50, 50);
+  height: 145px;
 
   img {
-    // max-height: 100%;
-    // width: max-content;
-    // height: max-content;
     display: flex;
-    align-self: center;
-    padding: 0 7px;
   }
 
   .details {
@@ -24,7 +20,7 @@
       font-style: italic;
       font-size: small;
       line-height: 22px;
-      margin-bottom: 17px;
+      margin-bottom: 7px;
       
     }
     img{
