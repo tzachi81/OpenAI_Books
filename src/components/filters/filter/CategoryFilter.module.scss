@@ -1,4 +1,4 @@
-@import '../Filters.module.scss';
+@use '../FiltersForward.scss' as *;
 
 .filterWrapper{
   display: flex;
