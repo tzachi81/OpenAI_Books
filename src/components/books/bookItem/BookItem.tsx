@@ -8,14 +8,12 @@ interface IBooksProps {
 }
 
 export const BookItem: React.FC<IBooksProps> = ({ book }) => {
-  const { author, cover_image, description, genre, publication_year, title } =
+  const { author, description, genre, publication_year, title } =
     book;
   return (
     <li className={classes.bookItem} key={book.id}>
       <img
-        width={"80"}
-        height={"120"}
-        src={cover_image}
+        src={'https://placehold.co/50x80'}
         alt={`${title} cover`}
       />
       <div className={classes.details}>

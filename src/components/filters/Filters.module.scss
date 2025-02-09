@@ -1,3 +1,13 @@
+@mixin select() {
+  height: 100%;
+  padding: 3px 7px;
+}
+
 .filters{
   display: flex;
+  margin: 12px 0;
+
+  select {
+    @include select()
+  }
 }

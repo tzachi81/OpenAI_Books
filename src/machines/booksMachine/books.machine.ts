@@ -1,15 +1,22 @@
 import { assign, createMachine, fromPromise } from "xstate";
 import { IBooksContext } from "./books.types";
+// import books from '../../assets/booksData/books.json'
 
 const initialContext: IBooksContext = {
   books: [],
+  page: 1,
+  itemsPerPage: 5,
   filters: {},
   error: '',
   loading: false
 }
 
+// const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = '/booksData/books.json';
+
 const fetchBooks = async () => {
-  const response = await fetch('/api');
+  // const response = await fetch('/api');
+  const response = await fetch(`${apiUrl}`);
   if (!response.ok) {
     throw new Error('Error fetching books');
   }
@@ -60,14 +67,36 @@ export const booksMachine = createMachine({
         FETCH: 'Loading',
         UPDATE_FILTERS: {
           actions: assign({
-            filters: ({ context, event }) => ({ ...context.filters, ...event.payload })
+            filters: ({ event }) => ({ ...event.payload })
+            // filters: ({ context, event }) => ({ ...context.filters, ...event.payload })
           }),
-        }
+        },
+        FIRST: {
+          actions: assign({
+            page: () => 1
+          })
+        },
+        NEXT: {
+          actions: assign({
+            page: ({ context }) => context.page + 1
+          })
+        },
+        PREVIOUS: {
+          actions: assign({
+            page: ({ context }) => context.page - 1
+          })
+        },
+        LAST: {
+          actions: assign({
+            page: ({ context }) => context.books.length / context.itemsPerPage
+          })
+        },
+
       }
     },
     Failure: {
       after: {
-        2000: {
+        3000: {
           target: 'Idle',
           actions: assign({ error: () => '' })
         }

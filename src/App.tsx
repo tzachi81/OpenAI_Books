@@ -19,9 +19,9 @@ function App() {
     }
   }, [stateCounter, stateSystem, sendToSystem]);
 
+
   return (
     <>
-      <h1>Machines</h1>
       <System
         sendToCounter={sendToCounter}
         stateSystem={stateSystem}
