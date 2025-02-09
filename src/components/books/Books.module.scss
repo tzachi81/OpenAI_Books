@@ -1,26 +1,19 @@
 .books{
   display: flex;
   flex-direction: column;
-  min-width: 800px;
+  padding: 0 auto;
   
   .booksResultsHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  h2 {
-    margin: 7px 17px ;
-  }
-  code{
-    text-align: center;    
-  }
+
   ul{
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow-y: scroll;
-    height: 500px;
-    width: 800px;
+    max-width: fit-content;
   }
   
 }
