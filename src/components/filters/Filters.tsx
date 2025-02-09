@@ -1,7 +1,7 @@
 import { CategoryFilter } from "./filter/CategoryFilter";
 import classes from "./Filters.module.scss";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 interface IFiltersProps {
   booksState: any;
@@ -13,7 +13,7 @@ interface IValidCategories {
 
 export const Filters: React.FC<IFiltersProps> = (props) => {
   const { booksState, sendToBooks } = props;
-  const { books, filters } = booksState.context;
+  const { books } = booksState.context;
   const [selectedCategory, setSelectedCategory] = useState<string>("none");
 
   const updatedSelectedCategory = (
