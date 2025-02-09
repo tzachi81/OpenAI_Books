@@ -1,5 +1,5 @@
 # Vercel Host
-- This project is hosted in Vercel platform. Visit this link to play around with the app: https://xstate-machines-pvuk-git-vercel-host-prep-tzachis-projects.vercel.app?_vercel_share=8AhEvfP4ey7LmXNhbWEaiAB433uRK7eG
+- This project is hosted in Vercel platform. Visit this link to play around with the app: https://xstate-machines-pvuk.vercel.app
   
 # About
 This app gets random books list, shows it in cards visualization with pagination options.
