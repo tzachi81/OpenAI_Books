@@ -10,6 +10,10 @@ interface IBooksProps {
 export const BookItem: React.FC<IBooksProps> = ({ book }) => {
   const { author, description, genre, publication_year, title } =
     book;
+
+    console.log('genre', genre);
+
+
   return (
     <li className={classes.bookItem} key={book.id}>
       <img
@@ -18,7 +22,7 @@ export const BookItem: React.FC<IBooksProps> = ({ book }) => {
       />
       <div className={classes.details}>
         <h3>{`${title}, ${author} (${publication_year})`}</h3>
-        <span><img src={genreIcon}></img>{genre}</span>
+        <span><img src={genreIcon}></img>{genre.join(', ')}</span>
         <span><img src={bookIcon}></img>{description}</span>
       </div>
     </li>
