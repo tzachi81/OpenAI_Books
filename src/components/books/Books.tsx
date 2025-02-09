@@ -1,55 +1,66 @@
-import React from 'react';
+import React, { useMemo } from "react";
 
 import classes from "./Books.module.scss";
-import BookLoader from './assets/images/book-loader.svg?react';
+import BookLoader from "./assets/images/book-loader.svg?react";
 
-import { IBook } from '../../machines/booksMachine/books.types';
+import { IBook } from "../../machines/booksMachine/books.types";
 
 import { BookItem } from "./bookItem/BookItem";
-import { Filters } from '../filters/Filters';
+import { Filters } from "../filters/Filters";
+import { Pagination } from "../pagination/Pagination";
 
 interface IBooksProps {
-  booksState: any,
-  sendToBooks: any
+  booksState: any;
+  sendToBooks: any;
 }
 
 export const Books: React.FC<IBooksProps> = (props) => {
-
-  const {booksState, sendToBooks} = props;
+  const { booksState, sendToBooks } = props;
 
   const onGetBooksClick = () => sendToBooks({ type: "FETCH" });
 
-  const { error, loading, books } = booksState.context;
+  const { error, loading, books, page, itemsPerPage } = booksState.context;
 
-  if (loading) return <BookLoader/>;
-  if (error !== '') return <p>{error}</p>;
+  if (loading) return <BookLoader />;
+  if (error !== "") return <p>{error}</p>;
+
+  const currentItems = useMemo(() => {
+    if (books.length > 0) {
+      const startIndex =
+        page > 1 ? page * itemsPerPage - itemsPerPage : page - 1;
+      const currentItemsTemp = books.slice(
+        startIndex,
+        startIndex + itemsPerPage
+      );
+      return currentItemsTemp;
+    }
+  }, [page, books]);
+
+
 
   return (
-    <>
-      <>
-        <button
-          onClick={onGetBooksClick}
-          title="Get books"
-          value={"Get Books"}
-        >
+    <div className={classes.books}>
+
+      <div className={classes.booksResultsHeader}>
+        <label>Found {books.length} books</label>
+        <button onClick={onGetBooksClick} title="Get books" value={"Get Books"}>
           Get Books
         </button>
-        <code> powered by: https://www.freetestapi.com/apis/books</code>
-      </>
-      {books.length > 0 ? (
+      </div>
 
-        <div className={classes.books}>
-          <h2>Books ({books.length})</h2>
-          <Filters booksState={booksState} sendToBooks={sendToBooks}/>
+      {books.length > 0 ? (
+        <>
+          <Filters booksState={booksState} sendToBooks={sendToBooks} />
           <ul>
-            {books.map((book: IBook) => {
+            {currentItems.map((book: IBook) => {
               return <BookItem key={book.id} book={book} />;
             })}
           </ul>
-        </div>
+          <Pagination booksState={booksState} sendToBooks={sendToBooks} />
+        </>
       ) : (
         <p>Sorry, no books were found</p>
       )}
-    </>
+    </div>
   );
 };

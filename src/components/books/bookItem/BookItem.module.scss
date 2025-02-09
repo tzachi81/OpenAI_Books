@@ -1,12 +1,15 @@
 .bookItem {
   display: flex;
-  align-items: stretch;
   margin: 7px 0;
   border: 1px solid rgb(52, 50, 50);
 
   img {
-    max-height: 100%;
-    width: auto;
+    // max-height: 100%;
+    // width: max-content;
+    // height: max-content;
+    display: flex;
+    align-self: center;
+    padding: 0 7px;
   }
 
   .details {
@@ -22,6 +25,7 @@
       font-size: small;
       line-height: 22px;
       margin-bottom: 17px;
+      
     }
     img{
       width: 22px;

@@ -1,5 +1,7 @@
 export interface IBooksContext {
   books: IBook[],
+  page: number,
+  itemsPerPage: number,
   filters: {
     [key:string]: string
   },

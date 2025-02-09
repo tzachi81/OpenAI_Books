@@ -1,0 +1,16 @@
+.pagination{
+  
+  margin: 7px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  
+  button{
+    margin: 0 6px;
+  }
+  p{
+    padding: 7px 12px;
+    font-weight: bold;
+  }
+}

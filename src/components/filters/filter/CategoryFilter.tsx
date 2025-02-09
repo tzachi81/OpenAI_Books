@@ -1,14 +1,15 @@
-import classes from "./Filter.module.scss";
+import classes from "./CategoryFilter.module.scss";
 
 interface IFilterProps {
-  category: string;
+  genre: string;
   filterItems: string[];
   booksState: any;
   sendToBooks: any;
 }
 
-export const Filter: React.FC<IFilterProps> = ({
-  category,
+export const CategoryFilter
+: React.FC<IFilterProps> = ({
+  genre,
   filterItems,
   sendToBooks,
 }) => {
@@ -17,14 +18,13 @@ export const Filter: React.FC<IFilterProps> = ({
 
     sendToBooks({
       type: "UPDATE_FILTERS",
-      payload: { [name]: value },
+      payload: name === "None" ? {} : { [name]: value },
     });
   };
 
   return (
     <div className={classes.filterWrapper}>
-      <label>{category}</label>
-      <select name={category} key={category} onChange={onSelected}>
+      <select name={genre} key={`genre_${genre}`} onChange={onSelected}>
         {filterItems.map((listItem) => {
           return <option key={listItem}>{listItem}</option>;
         })}

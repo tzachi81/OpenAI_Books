@@ -1,7 +1,7 @@
-import { Filter } from "./filter/Filter";
+import { CategoryFilter } from "./filter/CategoryFilter";
 import classes from "./Filters.module.scss";
 
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 interface IFiltersProps {
   booksState: any;
@@ -13,21 +13,27 @@ interface IValidCategories {
 
 export const Filters: React.FC<IFiltersProps> = (props) => {
   const { booksState, sendToBooks } = props;
-
   const { books, filters } = booksState.context;
+  const [selectedCategory, setSelectedCategory] = useState<string>("none");
 
-  useEffect(() => {
-    console.log("books state", booksState.context);
-  }, [booksState]);
-
-  const validCategories: IValidCategories = {
-    title: [],
-    author: [],
-    publication_year: [],
-    genre: [],
+  const updatedSelectedCategory = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedCategory(event.target.value);
   };
 
-  useMemo(() => {
+  const upperCaseFirstLetter = (str: string): string =>
+    str.charAt(0).toUpperCase() + str.slice(1);
+  
+  const updatedCategories: IValidCategories = useMemo(() => {
+    const validCategories: IValidCategories = {
+      title: [],
+      author: [],
+      publication_year: [],
+      genre: [],
+    };
+
+
     if (books.length > 0) {
       const validCategoriesKeys = Object.keys(validCategories);
 
@@ -51,21 +57,31 @@ export const Filters: React.FC<IFiltersProps> = (props) => {
         });
       });
     }
-  }, [books, filters]);
+    return validCategories;
+  }, [books]);
 
   return (
     <>
-      <h3>Filter</h3>
       <div className={classes.filters}>
-        {Object.keys(validCategories).map((category) => (
-          <Filter
-            key={category}
-            category={category}
-            filterItems={validCategories[category]}
+        <select value={selectedCategory} onChange={updatedSelectedCategory}>
+          <option key={"none"} value="none">
+            Filter by
+          </option>
+          {Object.keys(updatedCategories).map((category) => (
+            <option key={category} value={category}>
+              {upperCaseFirstLetter(category)}
+            </option>
+          ))}
+        </select>
+        {selectedCategory !== "none" && (
+          <CategoryFilter
+            key={`genre_${selectedCategory}`}
+            genre={selectedCategory}
+            filterItems={updatedCategories[selectedCategory].sort()}
             booksState={booksState}
             sendToBooks={sendToBooks}
           />
-        ))}
+        )}
       </div>
     </>
   );

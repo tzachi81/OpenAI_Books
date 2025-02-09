@@ -1,0 +1,10 @@
+@import '../Filters.module.scss';
+
+.filterWrapper{
+  display: flex;
+  margin: 0 12px;
+
+  select{
+    @include select();
+  }
+}
