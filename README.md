@@ -1,8 +1,8 @@
 # About
-This app gets random books list, shows it in cards visualization with pagination options.
+This app gets random books list, shows it in cards visualization with filters and pagination options.
 
 It uses system state machine to turn the the app on/off.
-The books state machine handles the data fetch logic, books category filters(author, genre...) and so on.
+The books state machine handles the data fetch logic, books category filters (author, genre...) and so on.
 
 # Vercel Host
 - This project is hosted in Vercel platform. Visit this link to play around with the app: https://xstate-machines.vercel.app
