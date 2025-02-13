@@ -11,8 +11,6 @@ export const BookItem: React.FC<IBooksProps> = ({ book }) => {
   const { author, description, genre, publication_year, title } =
     book;
 
-    console.log('genre', genre);
-
 
   return (
     <li className={classes.bookItem} key={book.id}>
