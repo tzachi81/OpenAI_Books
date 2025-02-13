@@ -3,7 +3,8 @@ export interface IBooksContext {
   page: number,
   itemsPerPage: number,
   filters: {
-    [key:string]: string
+    category: string,
+    value: string
   },
   error: string,
   loading: boolean

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 
 import classes from "./Books.module.scss";
 import BookLoader from "./assets/images/book-loader.svg?react";
@@ -19,10 +19,25 @@ export const Books: React.FC<IBooksProps> = (props) => {
 
   const onGetBooksClick = () => sendToBooks({ type: "FETCH" });
 
-  const { error, loading, books, page, itemsPerPage } = booksState.context;
+  const { error, loading, books, page, itemsPerPage, filters } =
+    booksState.context;
 
   if (loading) return <BookLoader />;
   if (error !== "") return <p>{error}</p>;
+
+  const filteredItems = useCallback(() => {
+
+    //TODO: improve filter when category is a collection (array of strings)
+    if (Object.keys(filters).length > 0 && books.length > 0) {
+      const { category, value } = filters;
+      if (category !== "") {
+        const filteredItems = books.filter(
+          (book: IBook) => book[category as keyof IBook] === value
+        );
+        return filteredItems;
+      }
+    }
+  }, [filters, books]);
 
   const currentItems = useMemo(() => {
     if (books.length > 0) {
@@ -36,13 +51,10 @@ export const Books: React.FC<IBooksProps> = (props) => {
     }
   }, [page, books]);
 
-
-
   return (
     <div className={classes.books}>
-
       <div className={classes.booksResultsHeader}>
-        {books.length >0 && <label>Found {books.length} books</label>}
+        {books.length > 0 && <label>Found {books.length} books</label>}
         <button onClick={onGetBooksClick} title="Get books" value={"Get Books"}>
           Get Books
         </button>
@@ -52,9 +64,18 @@ export const Books: React.FC<IBooksProps> = (props) => {
         <>
           <Filters booksState={booksState} sendToBooks={sendToBooks} />
           <ul>
-            {currentItems.map((book: IBook) => {
+            {filteredItems()?.length > 0 ? 
+            (
+              filteredItems().map((book: IBook) => {
+                return <BookItem key={book.id} book={book} />;
+              })
+             ) : 
+            (
+              currentItems.map((book: IBook) => {
               return <BookItem key={book.id} book={book} />;
-            })}
+            }))
+          }
+          
           </ul>
           <Pagination booksState={booksState} sendToBooks={sendToBooks} />
         </>

@@ -2,6 +2,7 @@ import { CategoryFilter } from "./filter/CategoryFilter";
 import classes from "./Filters.module.scss";
 
 import React, { useMemo, useState } from "react";
+import { upperCaseFirstLetter } from "./filterUtils.ts/filterUtils";
 
 interface IFiltersProps {
   booksState: any;
@@ -19,11 +20,11 @@ export const Filters: React.FC<IFiltersProps> = (props) => {
   const updatedSelectedCategory = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
+    if(event.target.value === 'none') sendToBooks({type: 'UPDATE_FILTERS', payload: { category: '', value: '' }})
     setSelectedCategory(event.target.value);
   };
 
-  const upperCaseFirstLetter = (str: string): string =>
-    str.charAt(0).toUpperCase() + str.slice(1);
+
   
   const updatedCategories: IValidCategories = useMemo(() => {
     const validCategories: IValidCategories = {

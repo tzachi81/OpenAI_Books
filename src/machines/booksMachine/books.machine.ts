@@ -6,7 +6,7 @@ const initialContext: IBooksContext = {
   books: [],
   page: 1,
   itemsPerPage: 5,
-  filters: {},
+  filters: { category: '', value: ''},
   error: '',
   loading: false
 }

@@ -1,3 +1,4 @@
+import { upperCaseFirstLetter } from "../filterUtils.ts/filterUtils";
 import classes from "./CategoryFilter.module.scss";
 
 interface IFilterProps {
@@ -18,13 +19,14 @@ export const CategoryFilter
 
     sendToBooks({
       type: "UPDATE_FILTERS",
-      payload: name === "None" ? {} : { [name]: value },
+      payload: name === "None" ? {category: '', value: ''} : { category: name, value },
     });
   };
 
   return (
     <div className={classes.filterWrapper}>
       <select name={genre} key={`genre_${genre}`} onChange={onSelected}>
+      <option key={"none"} value="none">-- Select {upperCaseFirstLetter(genre)} --</option>
         {filterItems.map((listItem) => {
           return <option key={listItem}>{listItem}</option>;
         })}
