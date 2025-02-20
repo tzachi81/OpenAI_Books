@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 
 import classes from "./Books.module.scss";
 import BookLoader from "./assets/images/book-loader.svg?react";
