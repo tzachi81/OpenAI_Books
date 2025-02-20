@@ -28,6 +28,7 @@ export const Books: React.FC<IBooksProps> = (props) => {
   const filteredItems = useCallback(() => {
 
     //TODO: improve filter when category is a collection (array of strings)
+    //TODO: add clear filters function
     if (Object.keys(filters).length > 0 && books.length > 0) {
       const { category, value } = filters;
       if (category !== "") {
