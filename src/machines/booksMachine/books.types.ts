@@ -1,15 +1,17 @@
 export interface IBooksContext {
   books: IBook[],
+  filtered: IBook[],
   page: number,
   itemsPerPage: number,
-  filters: {
-    category: string,
-    value: string
-  },
+  filters: IFilter,
   error: string,
   loading: boolean
 }
 
+export interface IFilter{
+  category: string,
+    value: string
+}
 export interface IBook {
   id: number,
   title: string,

@@ -36,8 +36,8 @@ export const systemMachine = createMachine({
         },
       },
     },
-    // Error: {
-    //   entry: () => console.log('error')
-    // }
+    Error: {
+      entry: () => console.log('error')
+    }
   },
 });

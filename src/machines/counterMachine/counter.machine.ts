@@ -40,7 +40,7 @@ export const counterMachine = createMachine({
       },
     },
     Error: {
-      entry:() => console.log('error')
+      entry:() => console.error('error')
     }
   },
 });

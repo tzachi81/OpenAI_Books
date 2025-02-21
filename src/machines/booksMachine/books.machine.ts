@@ -1,12 +1,13 @@
 import { assign, createMachine, fromPromise } from "xstate";
-import { IBooksContext } from "./books.types";
+import { IBook, IBooksContext, IFilter } from "./books.types";
 // import books from '../../assets/booksData/books.json'
 
 const initialContext: IBooksContext = {
   books: [],
+  filtered: [],
   page: 1,
   itemsPerPage: 5,
-  filters: { category: '', value: ''},
+  filters: { category: '', value: '' },
   error: '',
   loading: false
 }
@@ -25,6 +26,17 @@ const fetchBooks = async () => {
 
   return data;
 };
+
+const filterItems = (books: IBook[], filter: IFilter) => {
+
+  return books.filter(
+    (book: IBook) => {
+      const {category, value} = filter;
+      const structure = book[category as keyof IBook];
+      return !Array.isArray(structure) ? structure === value : structure.includes(value)
+    }
+  )
+}
 
 export const booksMachine = createMachine({
   id: 'books',
@@ -66,10 +78,18 @@ export const booksMachine = createMachine({
       on: {
         FETCH: 'Loading',
         UPDATE_FILTERS: {
-          actions: assign({
-            filters: ({ event }) => ({ ...event.payload })
-            // filters: ({ context, event }) => ({ ...context.filters, ...event.payload })
-          }),
+          actions: [
+            assign({
+              page: 1,
+              filters: ({ event }) => ({ ...event.payload }),
+            }),
+            assign({
+              filtered: ({ context }) => {
+                const {books, filters} = context;
+                return (filters.category !== '') ? filterItems(books, filters) : [];
+              },
+            })
+          ],
         },
         FIRST: {
           actions: assign({
@@ -88,7 +108,11 @@ export const booksMachine = createMachine({
         },
         LAST: {
           actions: assign({
-            page: ({ context }) => context.books.length / context.itemsPerPage
+            page: ({ context }) => {
+              const { filtered, books} = context;
+              const collection: IBook[] = filtered.length > 0 ? filtered : books
+              return Math.ceil(collection.length / context.itemsPerPage)
+            }
           })
         },
 

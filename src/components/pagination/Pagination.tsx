@@ -1,26 +1,45 @@
-import classes from './Pagination.module.scss';
+import { IBook } from "../../machines/booksMachine/books.types";
+import classes from "./Pagination.module.scss";
 
-
-interface IPagintationProps{
-  sendToBooks: any,
-  booksState: any
+interface IPagintationProps {
+  sendToBooks: any;
+  booksState: any;
+  collection: IBook[];
 }
 
-export const Pagination: React.FC<IPagintationProps> = ({booksState, sendToBooks}) => {
+export const Pagination: React.FC<IPagintationProps> = ({
+  booksState,
+  sendToBooks,
+  collection,
+}) => {
+  const { page, itemsPerPage } = booksState.context;
 
-  const { books, page, itemsPerPage } = booksState.context;
+  const pageHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const action = event.currentTarget.innerHTML.toUpperCase();
+    sendToBooks({ type: action });
+  };
 
-  const handleNext = () => sendToBooks({type: 'NEXT'});
-  const handlePrevious = () => sendToBooks({type: 'PREVIOUS'});
-  const handleFirst = () => sendToBooks({type: 'FIRST'});
-  const handleLast = () => sendToBooks({type: 'LAST'});
-
-  return <div className={classes.pagination}>
-
-    <button disabled={page === 1} onClick={handleFirst}>{'First'}</button>
-    <button disabled={page === 1} onClick={handlePrevious}>{'Previous'}</button>
-    <p>{page}</p>
-    <button disabled={page > books.length / itemsPerPage - 1} onClick={handleNext}>{'Next'}</button>
-    <button disabled={page === books.length / itemsPerPage } onClick={handleLast}>{'Last'}</button>
-  </div>
-}
+  return (
+    <div className={classes.pagination}>
+      <button disabled={page === 1} onClick={(e) => pageHandler(e)}>
+        {"First"}
+      </button>
+      <button disabled={page === 1} onClick={(e) => pageHandler(e)}>
+        {"Previous"}
+      </button>
+      <p>{page}</p>
+      <button
+        disabled={page >= Math.ceil(collection.length / itemsPerPage)}
+        onClick={(e) => pageHandler(e)}
+      >
+        {"Next"}
+      </button>
+      <button
+        disabled={page === Math.ceil(collection.length / itemsPerPage)}
+        onClick={(e) => pageHandler(e)}
+      >
+        {"Last"}
+      </button>
+    </div>
+  );
+};
