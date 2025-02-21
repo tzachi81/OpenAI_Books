@@ -21,3 +21,10 @@ export interface IBook {
   description: string,
   cover_image: string,
 }
+
+export type TBooksEvents = 'FETCH' | 'DEACTIVATE' | 'UPDATE_FILTERS' | 'FIRST' | 'LAST' | 'PREVIOUS' | 'NEXT';
+
+export interface IBooksEvents{
+  type: keyof TBooksEvents,
+  payload?: any
+}

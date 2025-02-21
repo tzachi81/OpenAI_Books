@@ -1,3 +1,4 @@
+import { IBooksEvents, TBooksEvents } from "../../../machines/booksMachine/books.types";
 import { upperCaseFirstLetter } from "../filterUtils.ts/filterUtils";
 import classes from "./CategoryFilter.module.scss";
 
@@ -5,7 +6,7 @@ interface IFilterProps {
   genre: string;
   filterItems: string[];
   booksState: any;
-  sendToBooks: any;
+  sendToBooks: (event: IBooksEvents) => void;
 }
 
 export const CategoryFilter
@@ -18,7 +19,7 @@ export const CategoryFilter
     const { name, value } = event.target;
 
     sendToBooks({
-      type: "UPDATE_FILTERS",
+      type: "UPDATE_FILTERS"  as keyof TBooksEvents ,
       payload: name === "None" ? {category: '', value: ''} : { category: name, value },
     });
   };

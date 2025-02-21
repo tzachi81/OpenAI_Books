@@ -1,6 +1,6 @@
 import { assign, createMachine, fromPromise } from "xstate";
-import { IBook, IBooksContext, IFilter } from "./books.types";
-// import books from '../../assets/booksData/books.json'
+import { IBook, IBooksContext, IBooksEvents, IFilter } from "./books.types";
+
 
 const initialContext: IBooksContext = {
   books: [],
@@ -31,7 +31,7 @@ const filterItems = (books: IBook[], filter: IFilter) => {
 
   return books.filter(
     (book: IBook) => {
-      const {category, value} = filter;
+      const { category, value } = filter;
       const structure = book[category as keyof IBook];
       return !Array.isArray(structure) ? structure === value : structure.includes(value)
     }
@@ -40,12 +40,21 @@ const filterItems = (books: IBook[], filter: IFilter) => {
 
 export const booksMachine = createMachine({
   id: 'books',
+  schemas: {
+    events: {} as IBooksEvents,
+    context: {} as IBooksContext
+  },
   context: initialContext,
   initial: 'Idle',
   states: {
     Idle: {
       on: {
-        FETCH: 'Loading'
+        FETCH: 'Loading',
+        DEACTIVATE: {
+          actions: assign({
+            ...initialContext
+          })
+        }
       }
     },
     Loading: {
@@ -75,8 +84,8 @@ export const booksMachine = createMachine({
 
     },
     Success: {
-      on: {
-        FETCH: 'Loading',
+      target: 'Idle',
+      on:{
         UPDATE_FILTERS: {
           actions: [
             assign({
@@ -85,7 +94,7 @@ export const booksMachine = createMachine({
             }),
             assign({
               filtered: ({ context }) => {
-                const {books, filters} = context;
+                const { books, filters } = context;
                 return (filters.category !== '') ? filterItems(books, filters) : [];
               },
             })
@@ -109,13 +118,12 @@ export const booksMachine = createMachine({
         LAST: {
           actions: assign({
             page: ({ context }) => {
-              const { filtered, books} = context;
+              const { filtered, books } = context;
               const collection: IBook[] = filtered.length > 0 ? filtered : books
               return Math.ceil(collection.length / context.itemsPerPage)
             }
           })
-        },
-
+        }
       }
     },
     Failure: {

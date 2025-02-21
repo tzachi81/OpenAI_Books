@@ -1,8 +1,12 @@
-import { IBook } from "../../machines/booksMachine/books.types";
+import {
+  IBook,
+  IBooksEvents,
+  TBooksEvents,
+} from "../../machines/booksMachine/books.types";
 import classes from "./Pagination.module.scss";
 
 interface IPagintationProps {
-  sendToBooks: any;
+  sendToBooks: (event: IBooksEvents) => void;
   booksState: any;
   collection: IBook[];
 }
@@ -16,7 +20,7 @@ export const Pagination: React.FC<IPagintationProps> = ({
 
   const pageHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     const action = event.currentTarget.innerHTML.toUpperCase();
-    sendToBooks({ type: action });
+    sendToBooks({ type: action as keyof TBooksEvents });
   };
 
   return (

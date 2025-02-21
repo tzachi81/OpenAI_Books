@@ -11,3 +11,13 @@
     @include select()
   }
 }
+
+.clearfilterButton{
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+  &:hover {
+    content: 'Clear Filters';
+  }
+}

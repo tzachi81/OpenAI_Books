@@ -26,8 +26,8 @@ export const Books: React.FC<IBooksProps> = (props) => {
   if (error !== "") return <p>{error}</p>;
 
   const collection: IBook[] = useMemo(() => {
-    return filtered.length > 0 ? filtered : books
-   },[filtered, books]);
+    return filtered.length > 0 ? filtered : books;
+  }, [filtered, books]);
 
   const currentItems: IBook[] = useMemo(() => {
     if (collection.length > 0) {
@@ -45,7 +45,11 @@ export const Books: React.FC<IBooksProps> = (props) => {
   return (
     <div className={classes.books}>
       <div className={classes.booksResultsHeader}>
-        {collection.length > 0 && <label>Found {collection.length} books</label>}
+        {collection.length > 0 && (
+          <label>{`Found ${collection.length} book${
+            collection.length > 1 ? "s" : ""
+          }`}</label>
+        )}
         <button onClick={onGetBooksClick} title="Get books" value={"Get Books"}>
           Get Books
         </button>
@@ -55,14 +59,18 @@ export const Books: React.FC<IBooksProps> = (props) => {
         <>
           <Filters booksState={booksState} sendToBooks={sendToBooks} />
           <ul>
-            {currentItems.length > 0 && (
+            {currentItems.length > 0 &&
               currentItems.map((book: IBook) => {
-              return <BookItem key={book.id} book={book} />;
-            }))
-          }
-          
+                return <BookItem key={book.id} book={book} />;
+              })}
           </ul>
-          {collection.length > itemsPerPage && <Pagination booksState={booksState} collection={collection}sendToBooks={sendToBooks} />}
+          {collection.length > itemsPerPage && (
+            <Pagination
+              booksState={booksState}
+              collection={collection}
+              sendToBooks={sendToBooks}
+            />
+          )}
         </>
       ) : (
         <p>Sorry, no books were found</p>

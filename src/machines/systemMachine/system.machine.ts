@@ -1,4 +1,4 @@
-import { createMachine, spawnChild, stopChild } from 'xstate';
+import { createMachine, sendTo, spawnChild, stopChild } from 'xstate';
 import { IToggleContext } from './system.types';
 import { counterMachine } from '../counterMachine/counter.machine';
 import { booksMachine } from '../booksMachine/books.machine';
@@ -30,14 +30,15 @@ export const systemMachine = createMachine({
       on: {
         'DEACTIVATE': {
           actions: [
-            stopChild('counter')
+            stopChild('counter'),
+            sendTo('books', {type: 'DEACTIVATE'})
           ],
           target: 'Inactive',
         },
       },
     },
     Error: {
-      entry: () => console.log('error')
+      entry: () => console.error('error')
     }
   },
 });
