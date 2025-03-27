@@ -7,4 +7,7 @@
   select{
     @include select();
   }
+  select.dropdown:focus{
+    border: 1px solid #45D1A8;
+  }
 }

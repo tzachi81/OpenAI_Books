@@ -26,7 +26,11 @@ export const CategoryFilter
 
   return (
     <div className={classes.filterWrapper}>
-      <select name={genre} key={`genre_${genre}`} onChange={onSelected}>
+      <select 
+      className={classes.dropdown}
+      name={genre} 
+      key={`genre_${genre}`} 
+      onChange={onSelected}>
       <option key={"none"} value="none">-- Select {upperCaseFirstLetter(genre)} --</option>
         {filterItems.map((listItem) => {
           return <option key={listItem}>{listItem}</option>;

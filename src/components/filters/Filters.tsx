@@ -69,16 +69,23 @@ export const Filters: React.FC<IFiltersProps> = (props) => {
   return (
     <>
       <div className={classes.filters}>
-        <span>Filter by <select value={selectedCategory} onChange={updatedSelectedCategory}>
-          <option key={"none"} value="none">
-            -- select category --
-          </option>
-          {Object.keys(updatedCategories).map((category) => (
-            <option key={category} value={category}>
-              {upperCaseFirstLetter(category)}
+        <span>
+          Filter by{" "}
+          <select
+            className={classes.dropdown}
+            value={selectedCategory}
+            onChange={updatedSelectedCategory}
+          >
+            <option key={"none"} value="none">
+              -- select category --
             </option>
-          ))}
-        </select></span>
+            {Object.keys(updatedCategories).map((category) => (
+              <option key={category} value={category}>
+                {upperCaseFirstLetter(category)}
+              </option>
+            ))}
+          </select>
+        </span>
         {selectedCategory !== "none" && (
           <>
             <CategoryFilter

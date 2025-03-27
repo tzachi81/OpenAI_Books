@@ -1,6 +1,10 @@
 @mixin select() {
   height: 100%;
   padding: 3px 7px;
+  outline: #45D1A8;
+  .dropdown{
+    outline: #45D1A8;
+  }
 }
 
 .filters{
@@ -9,6 +13,9 @@
 
   select {
     @include select()
+  }
+  select.dropdown:focus{
+    border: 1px solid #45D1A8;
   }
 }
 

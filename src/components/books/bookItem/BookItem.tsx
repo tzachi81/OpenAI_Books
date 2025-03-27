@@ -1,6 +1,7 @@
 import classes from "./BookItem.module.scss";
-import genreIcon from '../assets/images/genre-icon.png';
-import bookIcon from '../assets/images/book-icon.png';
+import genreIcon from '../assets/images/genre-icon-teal.png';
+import bookIcon from '../assets/images/book-icon-teal.png';
+import bookImage from '../assets/images/book-image.jpg';
 import { IBook } from "../../../machines/booksMachine/books.types";
 
 interface IBooksProps {
@@ -15,7 +16,7 @@ export const BookItem: React.FC<IBooksProps> = ({ book }) => {
   return (
     <li className={classes.bookItem} key={book.id}>
       <img
-        src={'https://placehold.co/50x80'}
+        src={bookImage}
         alt={`${title} cover`}
       />
       <div className={classes.details}>

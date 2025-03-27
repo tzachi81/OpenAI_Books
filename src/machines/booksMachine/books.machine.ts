@@ -16,15 +16,20 @@ const initialContext: IBooksContext = {
 const apiUrl = '/booksData/books.json';
 
 const fetchBooks = async () => {
-  // const response = await fetch('/api');
-  const response = await fetch(`${apiUrl}`);
-  if (!response.ok) {
-    throw new Error('Error fetching books');
-  }
 
-  const data = await response.json();
+  return new Promise((resolve) => {
 
-  return data;
+    //the setTimeout wrapper is just to mimic a UI loader action
+    //before changing the state from loading true -> to false
+    setTimeout(async () => {
+      const response = await fetch(`${apiUrl}`);
+      if (!response.ok) {
+        throw new Error('Error fetching books');
+      }
+      const data = await response.json();
+      resolve(data);
+    }, 1500);
+  });
 };
 
 const filterItems = (books: IBook[], filter: IFilter) => {

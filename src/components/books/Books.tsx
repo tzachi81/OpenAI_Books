@@ -1,13 +1,15 @@
 import React, { useMemo } from "react";
 
 import classes from "./Books.module.scss";
-import BookLoader from "./assets/images/book-loader.svg?react";
+// import BookLoader from "./assets/images/book-loader.svg?react";
+
 
 import { IBook } from "../../machines/booksMachine/books.types";
 
 import { BookItem } from "./bookItem/BookItem";
 import { Filters } from "../filters/Filters";
 import { Pagination } from "../pagination/Pagination";
+import { Loader } from "../loader/Loader";
 
 interface IBooksProps {
   booksState: any;
@@ -22,7 +24,8 @@ export const Books: React.FC<IBooksProps> = (props) => {
   const { error, loading, books, page, itemsPerPage, filtered } =
     booksState.context;
 
-  if (loading) return <BookLoader />;
+  
+  if (loading) return <Loader />;
   if (error !== "") return <p>{error}</p>;
 
   const collection: IBook[] = useMemo(() => {
@@ -46,7 +49,8 @@ export const Books: React.FC<IBooksProps> = (props) => {
     <div className={classes.books}>
       <div className={classes.booksResultsHeader}>
         {collection.length > 0 && (
-          <label>{`Found ${collection.length} book${
+          <label>Found <span className={classes.booksFound}>{collection.length}</span> 
+          {` book${
             collection.length > 1 ? "s" : ""
           }`}</label>
         )}
@@ -55,9 +59,11 @@ export const Books: React.FC<IBooksProps> = (props) => {
         </button>
       </div>
 
+
       {collection.length > 0 ? (
         <>
           <Filters booksState={booksState} sendToBooks={sendToBooks} />
+          
           <ul>
             {currentItems.length > 0 &&
               currentItems.map((book: IBook) => {
