@@ -1,5 +1,6 @@
 # About
-This app gets random books list, shows it in cards visualization with filters and pagination options.
+This app gets random books collection using open AI chat gpt 4o.
+It shows renders an interactive book collection with filters and pagination.
 
 It uses system state machine to turn the the app on/off.
 The books state machine handles the data fetch logic, books category filters (author, genre...) and so on.
