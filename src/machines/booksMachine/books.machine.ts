@@ -1,5 +1,6 @@
 import { assign, createMachine, fromPromise } from "xstate";
 import { IBook, IBooksContext, IBooksEvents, IFilter } from "./books.types";
+import { getBooksCollection } from "../../openAi/openAi";
 
 
 const initialContext: IBooksContext = {
@@ -12,23 +13,17 @@ const initialContext: IBooksContext = {
   loading: false
 }
 
-// const apiUrl = import.meta.env.VITE_API_URL;
-const apiUrl = '/booksData/books.json';
 
 const fetchBooks = async () => {
 
-  return new Promise((resolve) => {
-
-    //the setTimeout wrapper is just to mimic a UI loader action
-    //before changing the state from loading true -> to false
-    setTimeout(async () => {
-      const response = await fetch(`${apiUrl}`);
-      if (!response.ok) {
-        throw new Error('Error fetching books');
-      }
-      const data = await response.json();
-      resolve(data);
-    }, 1500);
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await getBooksCollection();
+      resolve(response);
+    } catch (error) {
+      console.error('Error fetching books:', error);
+      reject(error);
+    }
   });
 };
 
@@ -90,7 +85,7 @@ export const booksMachine = createMachine({
     },
     Success: {
       target: 'Idle',
-      on:{
+      on: {
         UPDATE_FILTERS: {
           actions: [
             assign({
