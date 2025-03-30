@@ -13,6 +13,7 @@
     "@statelyai/inspect": "^0.4.0",
     "@xstate/react": "^5.0.2",
     "classnames": "^2.5.1",
+    "openai": "^4.90.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sass": "^1.84.0",
