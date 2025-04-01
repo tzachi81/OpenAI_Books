@@ -17,6 +17,7 @@ export const BookItem: React.FC<IBooksProps> = ({ book }) => {
       <img
         src={cover_image}
         alt={`${title} cover`}
+        loading="lazy"
       />
       <div className={classes.details}>
         <h3>{`${title}, ${author} (${publication_year})`}</h3>
